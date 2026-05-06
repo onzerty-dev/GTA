@@ -286,7 +286,7 @@
             z-index: 1200;
             display: none;
             flex-direction: column;
-            height: 540px;
+            height: 520px;
             box-shadow: 0 20px 35px black;
             overflow: hidden;
         }
@@ -338,45 +338,6 @@
             font-size: 0.75rem;
             max-width: 90%;
             text-align: center;
-        }
-        .message.embed {
-            background: #1e1e2a;
-            border-left: 4px solid #ffaa44;
-            max-width: 90%;
-            align-self: center;
-            width: 100%;
-        }
-        .embed-title {
-            font-weight: bold;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .embed-description {
-            font-size: 0.8rem;
-            color: #ccc;
-        }
-        .profile-preview {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-            align-items: center;
-        }
-        .profile-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #ffaa44;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .profile-banner {
-            height: 60px;
-            background: linear-gradient(135deg, #3a3a4a, #1a1a2a);
-            border-radius: 12px;
-            margin-bottom: 8px;
         }
         .message-info {
             font-size: 0.65rem;
@@ -433,7 +394,7 @@
             background: #aa2e2e;
             color: white;
         }
-        /* menu slash */
+        /* menu slash commands */
         .slash-menu {
             position: absolute;
             bottom: 100%;
@@ -443,7 +404,7 @@
             border: 1px solid #444;
             overflow: hidden;
             z-index: 1300;
-            width: 240px;
+            width: 200px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             display: none;
         }
@@ -456,6 +417,9 @@
             font-size: 0.85rem;
             border-bottom: 1px solid #2a2a2a;
             transition: 0.1s;
+        }
+        .slash-menu-item:last-child {
+            border-bottom: none;
         }
         .slash-menu-item:hover {
             background: #2c2c3a;
@@ -594,10 +558,10 @@
     <div id="cartTotalPrice" class="cart-total">Total : 0 article(s)</div>
 </div>
 
-<!-- Chat déplaçable avec commandes avancées -->
+<!-- Chat déplaçable avec slash commands -->
 <div id="chatWidget" class="chat-widget">
     <div class="chat-header" id="chatDragHandle">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Communauté Fortnite</span>
+        <span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Communauté Fortnite</span>
         <button id="closeChatBtn" style="background:none; border:none; color:white; font-size:1.4rem;">✕</button>
     </div>
     <div id="chatMessagesContainer" class="chat-messages"></div>
@@ -606,27 +570,11 @@
         <div id="slashMenu" class="slash-menu">
             <div class="slash-menu-item" data-command="/help">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                <span>/help - Aide</span>
+                <span>/help - Afficher l'aide</span>
             </div>
             <div class="slash-menu-item" data-command="/clearall">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v5M14 11v5"/></svg>
-                <span>/clearall - Tout effacer</span>
-            </div>
-            <div class="slash-menu-item" data-command="/clear">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                <span>/clear N - Supprimer N messages</span>
-            </div>
-            <div class="slash-menu-item" data-command="/ban">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-                <span>/ban @pseudo - Bannir</span>
-            </div>
-            <div class="slash-menu-item" data-command="/timeout">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                <span>/timeout @pseudo minutes - Timeout</span>
-            </div>
-            <div class="slash-menu-item" data-command="/profil">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>/profil @pseudo - Voir profil</span>
+                <span>/clearall - Effacer tous les messages</span>
             </div>
         </div>
         <button id="sendPhotoBtn" class="action-btn">
@@ -641,11 +589,10 @@
 </div>
 
 <script>
-    // ----------------------------- GESTION DES COMPTES & UTILISATEURS -----------------------------
+    // ----------------------------- GESTION DES COMPTES -----------------------------
     let currentUserAccount = null;
     const usersKey = "vb_users";
     const currentUserKey = "vb_current_user";
-    // Structure user: { email, password, username, avatar, banner, isBanned, timeoutUntil }
     function loadUsers() { const stored = localStorage.getItem(usersKey); return stored ? JSON.parse(stored) : []; }
     function saveUsers(users) { localStorage.setItem(usersKey, JSON.stringify(users)); }
     function getCurrentUser() { const stored = localStorage.getItem(currentUserKey); return stored ? JSON.parse(stored) : null; }
@@ -664,65 +611,56 @@
             renderChatMessages();
         }
     }
-    function findUserByUsername(username) { return loadUsers().find(u => u.username.toLowerCase() === username.toLowerCase()); }
-    function updateUserInDB(updatedUser) {
-        let users = loadUsers();
-        const index = users.findIndex(u => u.username === updatedUser.username);
-        if (index !== -1) users[index] = updatedUser;
-        saveUsers(users);
-        if (currentUserAccount && currentUserAccount.username === updatedUser.username) setCurrentUser(updatedUser);
-    }
-
-    // Ban / timeout
-    function banUser(targetUsername) {
-        if (!currentUserAccount) return addSystemMessage("Vous devez être connecté pour bannir.");
-        if (currentUserAccount.username === targetUsername) return addSystemMessage("Vous ne pouvez pas vous bannir vous-même.");
-        let user = findUserByUsername(targetUsername);
-        if (!user) return addSystemMessage(`Utilisateur ${targetUsername} introuvable.`);
-        user.isBanned = true;
-        updateUserInDB(user);
-        addSystemMessage(`${targetUsername} a été banni du chat.`);
-    }
-    function timeoutUser(targetUsername, minutes) {
-        if (!currentUserAccount) return addSystemMessage("Connectez-vous pour timeout.");
-        if (currentUserAccount.username === targetUsername) return addSystemMessage("Impossible de vous timeout.");
-        let user = findUserByUsername(targetUsername);
-        if (!user) return addSystemMessage(`Utilisateur ${targetUsername} introuvable.`);
-        const duration = parseInt(minutes);
-        if (isNaN(duration) || duration <= 0) return addSystemMessage("Durée invalide (ex: /timeout @pseudo 5)");
-        user.timeoutUntil = Date.now() + duration * 60 * 1000;
-        updateUserInDB(user);
-        addSystemMessage(`${targetUsername} a été timeout pour ${duration} minutes.`);
-    }
-    function isUserTimedOut(username) {
-        const user = findUserByUsername(username);
-        if (user && user.timeoutUntil && user.timeoutUntil > Date.now()) return true;
-        return false;
-    }
-
-    // Profil embed
-    function showProfileEmbed(targetUsername) {
-        const user = findUserByUsername(targetUsername);
-        if (!user) return addSystemMessage(`Utilisateur ${targetUsername} introuvable.`);
-        const avatarUrl = user.avatar || `https://ui-avatars.com/api/?background=ffaa44&color=000&name=${user.username[0]}`;
-        const bannerUrl = user.banner || "https://picsum.photos/400/100?grayscale";
-        const embedHtml = `
-            <div class="message embed" style="background:#1e1e2a;">
-                <div class="embed-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffaa44"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profil de ${escapeHtml(user.username)}</div>
-                <div class="profile-banner" style="background-image: url(${bannerUrl}); background-size: cover;"></div>
-                <div class="profile-preview">
-                    <div class="profile-avatar"><img src="${avatarUrl}" width="48" height="48" style="border-radius:50%;"></div>
-                    <div><strong>${escapeHtml(user.username)}</strong><br>Membre depuis ${new Date(user.createdAt || Date.now()).toLocaleDateString()}</div>
+    function openAccountModal() {
+        const modal = document.createElement('div');
+        modal.className = 'fullscreen-modal';
+        let isLogin = true;
+        function renderForm() {
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>${isLogin ? 'Connexion' : 'Inscription'}</h2>
+                    <input type="email" id="authEmail" placeholder="Email">
+                    <input type="password" id="authPassword" placeholder="Mot de passe">
+                    ${!isLogin ? '<input type="text" id="authUsername" placeholder="Pseudo Fortnite">' : ''}
+                    <button id="authSubmitBtn">${isLogin ? 'Se connecter' : 'Créer un compte'}</button>
+                    <div class="toggle-auth">${isLogin ? 'Pas de compte ? Créer un compte' : 'Déjà un compte ? Se connecter'}</div>
+                    ${currentUserAccount ? '<button id="logoutBtn" style="background:#333;">Se déconnecter</button>' : ''}
                 </div>
-                <div class="embed-description">Statut: ${user.isBanned ? "Banni" : (isUserTimedOut(user.username) ? "Timeout" : "Actif")}</div>
-            </div>
-        `;
-        chatMessages.push({ sender: "Système", embedHtml, isSystem: true, isEmbed: true, timestamp: Date.now() });
-        saveMessagesToDB();
-        renderChatMessages();
+            `;
+            modal.querySelector('#authSubmitBtn').addEventListener('click', () => {
+                const email = modal.querySelector('#authEmail').value.trim();
+                const pwd = modal.querySelector('#authPassword').value.trim();
+                if (isLogin) {
+                    const users = loadUsers();
+                    const user = users.find(u => u.email === email && u.password === pwd);
+                    if (user) { setCurrentUser({ email: user.email, username: user.username }); showToast(`Connecté en tant que ${user.username}`); modal.remove(); }
+                    else showToast("Email ou mot de passe incorrect", true);
+                } else {
+                    const username = modal.querySelector('#authUsername').value.trim();
+                    if (!email || !pwd || !username) { showToast("Tous les champs sont requis", true); return; }
+                    let users = loadUsers();
+                    if (users.find(u => u.email === email)) { showToast("Email déjà utilisé", true); return; }
+                    const newUser = { email, password: pwd, username };
+                    users.push(newUser);
+                    saveUsers(users);
+                    setCurrentUser(newUser);
+                    showToast(`Compte créé : ${username}`);
+                    modal.remove();
+                }
+            });
+            const toggle = modal.querySelector('.toggle-auth');
+            if (toggle) toggle.addEventListener('click', () => { isLogin = !isLogin; renderForm(); });
+            if (currentUserAccount) {
+                const logoutBtn = modal.querySelector('#logoutBtn');
+                if (logoutBtn) logoutBtn.addEventListener('click', () => { setCurrentUser(null); showToast("Déconnecté"); modal.remove(); });
+            }
+        }
+        renderForm();
+        document.body.appendChild(modal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
     }
 
-    // ----------------------------- CHAT  -----------------------------
+    // ----------------------------- CHAT (commandes slash menu) -----------------------------
     let currentUserChat = "Invité";
     let chatMessages = [];
 
@@ -733,8 +671,8 @@
     }
     function saveMessagesToDB() { localStorage.setItem("vb_chat_messages", JSON.stringify(chatMessages)); }
 
-    function addSystemMessage(text, isEmbed = false, embedHtml = null) {
-        chatMessages.push({ sender: "Système", text, isSystem: true, embedHtml, isEmbed, timestamp: Date.now() });
+    function addSystemMessage(text) {
+        chatMessages.push({ sender: "Système", text, isSystem: true, timestamp: Date.now() });
         saveMessagesToDB();
         renderChatMessages();
     }
@@ -749,27 +687,11 @@
     function addMessageToDB(text, imageBase64 = null, audioBase64 = null) {
         if (!text && !imageBase64 && !audioBase64) return;
         if (text && text.startsWith('/')) {
-            const parts = text.trim().split(' ');
-            const cmd = parts[0].toLowerCase();
+            const cmd = text.trim().toLowerCase();
             if (cmd === '/clearall') { chatMessages = []; saveMessagesToDB(); addSystemMessage("Tous les messages ont été supprimés par " + currentUserChat); return; }
-            else if (cmd === '/help') {
-                const helpEmbed = `<div class="message embed"><div class="embed-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffaa44"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Commandes disponibles</div><div class="embed-description"><strong>/help</strong> - Affiche ce menu<br><strong>/clearall</strong> - Supprime tout l'historique<br><strong>/clear N</strong> - Supprime les N derniers messages (ex: /clear 10)<br><strong>/ban @pseudo</strong> - Bannir un utilisateur<br><strong>/timeout @pseudo minutes</strong> - Timeout temporaire<br><strong>/profil @pseudo</strong> - Voir le profil avec avatar et bannière</div></div>`;
-                addSystemMessage("", true, helpEmbed);
-                return;
-            }
-            else if (cmd === '/clear' && parts[1]) {
-                const count = parseInt(parts[1]);
-                if (isNaN(count) || count <= 0) addSystemMessage("Utilisation: /clear nombre (ex: /clear 5)");
-                else { chatMessages = chatMessages.slice(0, -count); saveMessagesToDB(); addSystemMessage(`${count} message(s) supprimés.`); }
-                return;
-            }
-            else if (cmd === '/ban' && parts[1]) { banUser(parts[1].replace('@', '')); return; }
-            else if (cmd === '/timeout' && parts[1] && parts[2]) { timeoutUser(parts[1].replace('@', ''), parts[2]); return; }
-            else if (cmd === '/profil' && parts[1]) { showProfileEmbed(parts[1].replace('@', '')); return; }
-            else { addSystemMessage(`Commande inconnue. Tapez /help.`); return; }
+            else if (cmd === '/help') { addSystemMessage("Commandes : /clearall (supprime tout) /help (aide)"); return; }
+            else { addSystemMessage(`Commande inconnue : "${text}". Tapez /help.`); return; }
         }
-        // Vérifier timeout avant d'envoyer
-        if (isUserTimedOut(currentUserChat)) { addSystemMessage("Vous êtes actuellement en timeout, vous ne pouvez pas envoyer de message."); return; }
         const newMsg = { sender: currentUserChat, text: text || "", image: imageBase64, audio: audioBase64, timestamp: Date.now(), isSystem: false };
         chatMessages.push(newMsg);
         saveMessagesToDB();
@@ -779,14 +701,10 @@
     function renderChatMessages() {
         const container = document.getElementById("chatMessagesContainer");
         if (!container) return;
-        if (chatMessages.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; padding:20px;">Aucun message.</div>'; return; }
+        if (chatMessages.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; padding:20px;">Aucun message. Commencez la discussion !</div>'; return; }
         let html = '';
         for (let msg of chatMessages) {
-            if (msg.isSystem) {
-                if (msg.isEmbed && msg.embedHtml) html += msg.embedHtml;
-                else html += `<div class="message system">${escapeHtml(msg.text)}</div>`;
-                continue;
-            }
+            if (msg.isSystem) { html += `<div class="message system">${escapeHtml(msg.text)}</div>`; continue; }
             const isOwn = (msg.sender === currentUserChat);
             html += `<div class="message ${isOwn ? 'user' : 'other'}"><div class="message-info">${escapeHtml(msg.sender)}</div>`;
             if (msg.text) html += `<div>${escapeHtml(msg.text)}</div>`;
@@ -800,114 +718,182 @@
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
     window.addEventListener('storage', (event) => { if (event.key === 'vb_chat_messages') { chatMessages = JSON.parse(localStorage.getItem("vb_chat_messages") || "[]"); renderChatMessages(); } });
 
-    // SLASH MENU
+    // SLASH COMMANDS (autocomplete)
     const chatInput = document.getElementById('chatMessageInput');
     const slashMenu = document.getElementById('slashMenu');
+    let slashTimeout;
     chatInput.addEventListener('input', (e) => {
-        if (e.target.value === '/') slashMenu.style.display = 'block';
-        else if (e.target.value.startsWith('/')) slashMenu.style.display = 'block';
-        else slashMenu.style.display = 'none';
+        const value = e.target.value;
+        if (value === '/') {
+            slashMenu.style.display = 'block';
+        } else if (value.startsWith('/')) {
+            // on pourrait filtrer mais on garde simple
+            slashMenu.style.display = 'block';
+        } else {
+            slashMenu.style.display = 'none';
+        }
+        // hide after delay if user continues typing without slash
+        clearTimeout(slashTimeout);
+        slashTimeout = setTimeout(() => { if (!value.startsWith('/')) slashMenu.style.display = 'none'; }, 1000);
     });
+    // Cliquer sur un item du menu
     document.querySelectorAll('.slash-menu-item').forEach(item => {
         item.addEventListener('click', () => {
             const command = item.getAttribute('data-command');
-            if (command === '/clear') chatInput.value = '/clear ';
-            else if (command === '/ban') chatInput.value = '/ban @';
-            else if (command === '/timeout') chatInput.value = '/timeout @ ';
-            else if (command === '/profil') chatInput.value = '/profil @';
-            else chatInput.value = command + ' ';
+            chatInput.value = command + ' ';
             chatInput.focus();
             slashMenu.style.display = 'none';
         });
     });
-    document.addEventListener('click', (e) => { if (!chatInput.contains(e.target) && !slashMenu.contains(e.target)) slashMenu.style.display = 'none'; });
+    // Cacher le menu si on clique ailleurs
+    document.addEventListener('click', (e) => {
+        if (!chatInput.contains(e.target) && !slashMenu.contains(e.target)) {
+            slashMenu.style.display = 'none';
+        }
+    });
 
-    // Audio recording
-    let mediaRecorder, audioChunks = [], isRecording = false;
+    // Enregistrement audio
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
     const recordBtn = document.getElementById('recordAudioBtn');
     async function startRecording() {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
             audioChunks = [];
-            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+            mediaRecorder.ondataavailable = event => { audioChunks.push(event.data); };
             mediaRecorder.onstop = () => {
-                const blob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                 const reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = () => addAudioMessage(reader.result);
-                stream.getTracks().forEach(t => t.stop());
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = () => { addAudioMessage(reader.result); };
+                stream.getTracks().forEach(track => track.stop());
             };
             mediaRecorder.start();
             isRecording = true;
-            recordBtn.classList.add('recording-btn');
-            showToast("Enregistrement... cliquez à nouveau pour arrêter");
-        } catch (err) { showToast("Micro non autorisé", true); }
+            recordBtn.style.background = "#aa2e2e";
+            recordBtn.style.color = "white";
+            showToast("Enregistrement en cours... (cliquez à nouveau pour arrêter)");
+        } catch (err) { showToast("Micro non autorisé ou indisponible", true); }
     }
-    function stopRecording() { if (mediaRecorder && isRecording) { mediaRecorder.stop(); isRecording = false; recordBtn.classList.remove('recording-btn'); } }
+    function stopRecording() { if (mediaRecorder && isRecording) { mediaRecorder.stop(); isRecording = false; recordBtn.style.background = ""; recordBtn.style.color = ""; } }
     recordBtn.addEventListener('click', () => { if (isRecording) stopRecording(); else startRecording(); });
 
-    // Panier, commandes, etc. (reste identique)
+    // ----------------------------- Panier  -----------------------------
     let cart = [];
     const vbMap = { '1000':'1 000 V-Bucks', '2800':'2 800 V-Bucks', '5000':'5 000 V-Bucks', '13500':'13 500 V-Bucks' };
     function saveCart() { localStorage.setItem('vb_cart', JSON.stringify(cart)); updateCartUI(); updateCartCounter(); }
     function loadCart() { cart = JSON.parse(localStorage.getItem('vb_cart') || "[]"); updateCartUI(); updateCartCounter(); }
-    function addToCart(vbValue) { const name = vbMap[vbValue]; const existing = cart.find(i => i.id === vbValue); if (existing) existing.quantity++; else cart.push({ id: vbValue, name, quantity: 1 }); saveCart(); showToast(`✔ ${name} ajouté`); }
+    function addToCart(vbValue) { const name = vbMap[vbValue]; const existing = cart.find(i => i.id === vbValue); if (existing) existing.quantity++; else cart.push({ id: vbValue, name, quantity: 1 }); saveCart(); showToast(`✔ ${name} ajouté au panier`); }
+    function removeItem(idx) { cart.splice(idx,1); saveCart(); }
     function updateQuantity(idx, delta) { if (cart[idx]) { let newQty = cart[idx].quantity + delta; if (newQty <= 0) cart.splice(idx,1); else cart[idx].quantity = newQty; saveCart(); } }
     function updateCartUI() {
         const container = document.getElementById('cartItemsContainer');
+        const totalSpan = document.getElementById('cartTotalPrice');
         if (!container) return;
-        if (cart.length === 0) { container.innerHTML = '<div class="empty-cart">Panier vide</div>'; document.getElementById('cartTotalPrice').innerText = 'Total : 0 article(s)'; return; }
+        if (cart.length === 0) { container.innerHTML = '<div class="empty-cart">Panier vide</div>'; totalSpan.innerText = 'Total : 0 article(s)'; return; }
         let totalItems = 0, html = '';
-        cart.forEach((item, idx) => { totalItems += item.quantity; html += `<div class="cart-item-row"><div><div>${item.name}</div><div>Qté: ${item.quantity}</div></div><div class="cart-qty-control"><button data-idx="${idx}" data-delta="-1">-</button><span>${item.quantity}</span><button data-idx="${idx}" data-delta="1">+</button><button class="remove-cart-item" data-idx="${idx}">🗑</button></div></div>`; });
+        cart.forEach((item, idx) => { totalItems += item.quantity; html += `<div class="cart-item-row"><div><div class="cart-item-name">${item.name}</div><div>Quantité : ${item.quantity}</div></div><div class="cart-qty-control"><button data-idx="${idx}" data-delta="-1">-</button><span>${item.quantity}</span><button data-idx="${idx}" data-delta="1">+</button><button class="remove-cart-item" data-idx="${idx}">🗑</button></div></div>`; });
         container.innerHTML = html;
-        document.getElementById('cartTotalPrice').innerText = `Total : ${totalItems} article(s)`;
-        document.querySelectorAll('.cart-qty-control button[data-delta]').forEach(btn => btn.addEventListener('click', (e) => { const idx = parseInt(btn.dataset.idx), delta = parseInt(btn.dataset.delta); updateQuantity(idx, delta); }));
-        document.querySelectorAll('.remove-cart-item').forEach(btn => btn.addEventListener('click', (e) => { removeItem(parseInt(btn.dataset.idx)); }));
+        totalSpan.innerText = `Total : ${totalItems} article(s)`;
+        document.querySelectorAll('.cart-qty-control button[data-delta]').forEach(btn => { btn.addEventListener('click', (e) => { const idx = parseInt(btn.dataset.idx), delta = parseInt(btn.dataset.delta); updateQuantity(idx, delta); }); });
+        document.querySelectorAll('.remove-cart-item').forEach(btn => { btn.addEventListener('click', (e) => { removeItem(parseInt(btn.dataset.idx)); }); });
     }
-    function removeItem(idx) { cart.splice(idx,1); saveCart(); }
     function updateCartCounter() { document.getElementById('cartCounter').innerText = cart.reduce((s,i)=>s+i.quantity,0); }
 
+    // Téléphone FR
     const phoneInput = document.getElementById('phoneNumber');
-    function formatPhone(v) { let d = v.replace(/\D/g,''); if(d.length>10) d=d.slice(0,10); let f=''; for(let i=0;i<d.length;i++){ if(i===2||i===4||i===6||i===8) f+=' '; f+=d[i]; } return f; }
-    phoneInput.addEventListener('input', e => e.target.value = formatPhone(e.target.value));
-    function isValidFrenchPhone(p) { const d = p.replace(/\s/g,''); return /^(06|07)[0-9]{8}$/.test(d); }
-    function showToast(msg, isErr=false) { const t=document.createElement('div'); t.className='toast'; t.style.background=isErr?'#aa2e2e':'#1f2a2f'; t.innerText=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2500); }
+    function formatPhone(value) { let digits = value.replace(/\D/g, ''); if(digits.length>10) digits=digits.slice(0,10); let formatted=''; for(let i=0;i<digits.length;i++){ if(i===2||i===4||i===6||i===8) formatted+=' '; formatted+=digits[i]; } return formatted; }
+    phoneInput.addEventListener('input', (e) => { e.target.value = formatPhone(e.target.value); });
+    function isValidFrenchPhone(phone) { const digits = phone.replace(/\s/g, ''); return /^(06|07)[0-9]{8}$/.test(digits); }
+    function showToast(msg, isError=false) { const toast = document.createElement('div'); toast.className = 'toast'; toast.style.background = isError ? '#aa2e2e' : '#1f2a2f'; toast.innerText = msg; document.body.appendChild(toast); setTimeout(() => toast.remove(), 2500); }
+
+    // Commande
     document.getElementById('finalOrderBtn').addEventListener('click', () => {
         const pseudo = document.getElementById('gamertag').value.trim();
         const platform = document.getElementById('platformSelect').value;
-        const phone = phoneInput.value.trim();
-        if (!pseudo) return showToast('Pseudo requis', true);
-        if (!isValidFrenchPhone(phone)) { document.getElementById('phoneError').innerText = 'Numéro invalide'; return; }
-        if (cart.length===0) return showToast('Panier vide', true);
-        showToast(`Commande validée pour ${pseudo} (${platform})`);
+        const phoneVal = phoneInput.value.trim();
+        if (!pseudo) { showToast('Entrez un pseudo Fortnite', true); return; }
+        if (!isValidFrenchPhone(phoneVal)) { document.getElementById('phoneError').innerText = 'Numéro français invalide (ex: 06 12 34 56 78)'; return; }
+        if (cart.length === 0) { showToast('Ajoutez des V-Bucks au panier', true); return; }
+        const items = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+        showToast(`Commande validée pour ${pseudo} (${platform}) - ${items}. SMS au ${phoneVal}`);
         cart = []; saveCart(); document.getElementById('cartPanel').classList.remove('open');
     });
+
+    // UI
     document.getElementById('openCartBtn').addEventListener('click', () => document.getElementById('cartPanel').classList.add('open'));
     document.getElementById('closeCartPanel').addEventListener('click', () => document.getElementById('cartPanel').classList.remove('open'));
     document.getElementById('addToCartBtn').addEventListener('click', () => addToCart(document.getElementById('vbucksDropdown').value));
-    document.getElementById('infoModalBtn').addEventListener('click', () => { const m=document.createElement('div'); m.className='fullscreen-modal'; m.innerHTML=`<div class="modal-content"><h2>Infos</h2><p>Chat avec commandes /help, /clearall, /clear N, /ban, /timeout, /profil</p><button id="closeFullModal">Fermer</button></div>`; document.body.appendChild(m); document.getElementById('closeFullModal').addEventListener('click',()=>m.remove()); m.addEventListener('click',e=>{if(e.target===m) m.remove();}); });
+
+    // Info modal
+    document.getElementById('infoModalBtn').addEventListener('click', () => { const modal = document.createElement('div'); modal.className='fullscreen-modal'; modal.innerHTML=`<div class="modal-content"><h2>Informations</h2><p>V-Bucks officiels, chat vocal/photo, commandes /help /clearall</p><button id="closeFullModal">Fermer</button></div>`; document.body.appendChild(modal); document.getElementById('closeFullModal').addEventListener('click',()=>modal.remove()); modal.addEventListener('click',(e)=>{if(e.target===modal) modal.remove();}); });
+
     // Chat UI
     const chatWidget = document.getElementById('chatWidget');
     function openChat() { currentUserChat = document.getElementById('gamertag').value.trim() || "Invité"; chatWidget.classList.add('open'); renderChatMessages(); }
-    function closeChat() { chatWidget.classList.remove('open'); if(isRecording) stopRecording(); }
+    function closeChat() { chatWidget.classList.remove('open'); if (isRecording) stopRecording(); }
     document.getElementById('openChatNavBtn').addEventListener('click', openChat);
     document.getElementById('closeChatBtn').addEventListener('click', closeChat);
-    document.getElementById('sendChatMsgBtn').addEventListener('click', () => { const txt = document.getElementById('chatMessageInput').value.trim(); if(txt) { addMessageToDB(txt); document.getElementById('chatMessageInput').value = ''; slashMenu.style.display = 'none'; } });
-    document.getElementById('chatMessageInput').addEventListener('keypress', e => { if(e.key === 'Enter') document.getElementById('sendChatMsgBtn').click(); });
-    const photoInput = document.getElementById('photoFileInput');
-    document.getElementById('sendPhotoBtn').addEventListener('click', () => photoInput.click());
-    photoInput.addEventListener('change', e => { const file = e.target.files[0]; if(file && file.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = ev => { addMessageToDB("", ev.target.result); photoInput.value = ''; }; reader.readAsDataURL(file); } else if(file) showToast("Image uniquement", true); });
-    // Drag
+    document.getElementById('sendChatMsgBtn').addEventListener('click', () => { const input = document.getElementById('chatMessageInput'); const text = input.value.trim(); if (text) { addMessageToDB(text); input.value = ''; slashMenu.style.display = 'none'; } });
+    document.getElementById('chatMessageInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') document.getElementById('sendChatMsgBtn').click(); });
+    // Photo
+    const photoFileInput = document.getElementById('photoFileInput');
+    document.getElementById('sendPhotoBtn').addEventListener('click', () => photoFileInput.click());
+    photoFileInput.addEventListener('change', (e) => { const file = e.target.files[0]; if (file && file.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = (ev) => { addMessageToDB("", ev.target.result); photoFileInput.value = ''; }; reader.readAsDataURL(file); } else if (file) showToast("Veuillez sélectionner une image", true); });
+
+    // Drag & drop du chat
     const dragHandle = document.getElementById('chatDragHandle');
-    let drag = false, sX, sY, sL, sB;
-    function onMove(ev) { if(!drag) return; let dx = ev.clientX - sX, dy = ev.clientY - sY; let nl = sL + dx, nb = sB - dy; nl = Math.min(window.innerWidth - chatWidget.offsetWidth - 10, Math.max(10, nl)); nb = Math.min(window.innerHeight - chatWidget.offsetHeight - 10, Math.max(60, nb)); chatWidget.style.left = nl + 'px'; chatWidget.style.bottom = nb + 'px'; chatWidget.style.right = 'auto'; }
-    function onUp() { drag = false; document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
-    dragHandle.addEventListener('mousedown', (e) => { if(e.target.tagName === 'BUTTON') return; drag = true; sX = e.clientX; sY = e.clientY; const rect = chatWidget.getBoundingClientRect(); sL = rect.left; sB = window.innerHeight - rect.bottom; chatWidget.style.left = sL + 'px'; chatWidget.style.bottom = sB + 'px'; chatWidget.style.right = 'auto'; document.addEventListener('mousemove', onMove); document.addEventListener('mouseup', onUp); e.preventDefault(); });
-    // Navigation
-    document.querySelectorAll('.nav-item').forEach(btn => btn.addEventListener('click', () => { const t = btn.dataset.nav; if(t==='account') openAccountModal(); else if(t==='help') { const m=document.createElement('div'); m.className='fullscreen-modal'; m.innerHTML=`<div class="modal-content"><h2>Aide</h2><p>Commandes slash : /help, /clearall, /clear N, /ban @user, /timeout @user minutes, /profil @user</p><button id="closeHelpModal">Fermer</button></div>`; document.body.appendChild(m); document.getElementById('closeHelpModal').addEventListener('click',()=>m.remove()); m.addEventListener('click',e=>{if(e.target===m) m.remove();}); } else if(t==='home') document.querySelector('.form-card')?.scrollIntoView({behavior:'smooth'}); }));
-    function openAccountModal() { /* même code que précédent */ const modal = document.createElement('div'); modal.className='fullscreen-modal'; let isLogin=true; function render(){ modal.innerHTML=`<div class="modal-content"><h2>${isLogin?'Connexion':'Inscription'}</h2><input type="email" id="authEmail" placeholder="Email"><input type="password" id="authPassword" placeholder="Mot de passe">${!isLogin?'<input type="text" id="authUsername" placeholder="Pseudo Fortnite">':''}<button id="authSubmitBtn">${isLogin?'Se connecter':'Créer'}</button><div class="toggle-auth">${isLogin?'Pas de compte ? Créer':'Déjà un compte ? Connexion'}</div>${currentUserAccount?'<button id="logoutBtn" style="background:#333;">Déconnexion</button>':''}</div>`; modal.querySelector('#authSubmitBtn').addEventListener('click',()=>{ const email=modal.querySelector('#authEmail').value.trim(), pwd=modal.querySelector('#authPassword').value.trim(); if(isLogin){ const users=loadUsers(); const user=users.find(u=>u.email===email && u.password===pwd); if(user){ setCurrentUser({email:user.email, username:user.username, avatar:user.avatar, banner:user.banner}); showToast(`Connecté ${user.username}`); modal.remove(); } else showToast("Identifiants incorrects",true); } else { const username=modal.querySelector('#authUsername').value.trim(); if(!email||!pwd||!username){ showToast("Tous champs requis",true); return; } let users=loadUsers(); if(users.find(u=>u.email===email)){ showToast("Email déjà utilisé",true); return; } const newUser={email, password:pwd, username, avatar:null, banner:null, createdAt:Date.now()}; users.push(newUser); saveUsers(users); setCurrentUser(newUser); showToast(`Compte créé : ${username}`); modal.remove(); } }); const toggle=modal.querySelector('.toggle-auth'); if(toggle) toggle.addEventListener('click',()=>{ isLogin=!isLogin; render(); }); if(currentUserAccount){ const logoutBtn=modal.querySelector('#logoutBtn'); if(logoutBtn) logoutBtn.addEventListener('click',()=>{ setCurrentUser(null); showToast("Déconnecté"); modal.remove(); }); } } render(); document.body.appendChild(modal); modal.addEventListener('click',e=>{if(e.target===modal) modal.remove();}); }
-    loadCart(); loadMessagesFromDB(); const savedUser = getCurrentUser(); if(savedUser) { currentUserAccount = savedUser; currentUserChat = savedUser.username; document.getElementById('gamertag').value = savedUser.username; } else currentUserChat = "Invité"; renderChatMessages();
+    let isDragging = false, startX, startY, startLeft, startBottom;
+    function onMouseMove(e) {
+        if (!isDragging) return;
+        let dx = e.clientX - startX;
+        let dy = e.clientY - startY;
+        let newLeft = startLeft + dx;
+        let newBottom = startBottom - dy;
+        const maxLeft = window.innerWidth - chatWidget.offsetWidth - 10;
+        const minLeft = 10;
+        const maxBottom = window.innerHeight - chatWidget.offsetHeight - 10;
+        const minBottom = 60;
+        chatWidget.style.left = Math.min(maxLeft, Math.max(minLeft, newLeft)) + 'px';
+        chatWidget.style.bottom = Math.min(maxBottom, Math.max(minBottom, newBottom)) + 'px';
+        chatWidget.style.right = 'auto';
+    }
+    function onMouseUp() { isDragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+    dragHandle.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON') return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = chatWidget.getBoundingClientRect();
+        startLeft = rect.left;
+        startBottom = window.innerHeight - rect.bottom;
+        chatWidget.style.left = startLeft + 'px';
+        chatWidget.style.bottom = startBottom + 'px';
+        chatWidget.style.right = 'auto';
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        e.preventDefault();
+    });
+
+    // Navigation secondaire
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const type = btn.dataset.nav;
+            if (type === 'account') openAccountModal();
+            else if (type === 'help') { const modal = document.createElement('div'); modal.className='fullscreen-modal'; modal.innerHTML=`<div class="modal-content"><h2>Aide</h2><p>Support via chat. Commandes slash : /help, /clearall</p><button id="closeHelpModal">Fermer</button></div>`; document.body.appendChild(modal); document.getElementById('closeHelpModal').addEventListener('click',()=>modal.remove()); modal.addEventListener('click',(e)=>{if(e.target===modal) modal.remove();}); }
+            else if (type === 'home') document.querySelector('.form-card')?.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Initialisation
+    loadCart();
+    loadMessagesFromDB();
+    const savedUser = getCurrentUser();
+    if (savedUser) { currentUserAccount = savedUser; currentUserChat = savedUser.username; document.getElementById('gamertag').value = savedUser.username; }
+    else currentUserChat = "Invité";
+    renderChatMessages();
 </script>
 </body>
 </html>
